@@ -1,0 +1,240 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:compilerservices="using:System.Runtime.CompilerServices"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="using:GroupProject"
+        xmlns:vm="clr-namespace:GroupProject.ViewModels"
+        xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="GroupProject.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        x:Name="ThisWindow"
+        Title="GroupProject">
+
+    
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+        <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Background" Value="#1a1a1a"/>
+        </Style>
+        
+        <Style Selector="TabControl">
+            <Setter Property="Background" Value="#2d2d2d"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+        </Style>
+        
+        <Style Selector="TabItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#b0b0b0"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+        
+        <Style Selector="TabItem:pointerover">
+            <Setter Property="Background" Value="#3a3a3a"/>
+            <Setter Property="Foreground" Value="#ffffff"/>
+        </Style>
+        
+        <Style Selector="TabItem:selected">
+            <Setter Property="Background" Value="#252525"/>
+            <Setter Property="Foreground" Value="#ffffff"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+
+        </Style>
+        
+        <Style Selector="DataGrid">
+            <Setter Property="Background" Value="#252525"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,0"/>
+        </Style>
+        
+        <Style Selector="DataGridRow">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+        </Style>
+        
+        <Style Selector="DataGridRow:selected">
+            <Setter Property="Background" Value="#005a9e"/>
+            <Setter Property="Foreground" Value="#ffffff"/>
+        </Style>
+        
+        <Style Selector="DataGridCell">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="Padding" Value="12,8"/>
+        </Style>
+        
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="4,0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        
+        <Style Selector="Button:pointerover">
+            <Setter Property="Background" Value="#404040"/>
+            <Setter Property="BorderBrush" Value="#666666"/>
+        </Style>
+        
+        <Style Selector="Button:pressed">
+            <Setter Property="Background" Value="#0078d4"/>
+            <Setter Property="BorderBrush" Value="#005a9e"/>
+        </Style>
+        
+        <Style Selector="TextBox, ComboBox">
+            <Setter Property="Background" Value="#252525"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        
+        <Style Selector="TextBox:focus, ComboBox:focus">
+            <Setter Property="BorderBrush" Value="#0078d4"/>
+        </Style>
+        
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+        </Style>
+        
+        <Style Selector="Label">
+            <Setter Property="Foreground" Value="#b0b0b0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+        <Style Selector="StackPanel Grid">
+            <Setter Property="Background" Value="#252525"/>
+        </Style>
+    </Window.Styles>
+
+    <DockPanel>
+        <StackPanel Height="50" DockPanel.Dock="Top" >
+		    <Grid ColumnDefinitions="*, *" DockPanel.Dock="Top">
+                <StackPanel  Spacing="15" Orientation="Horizontal" Grid.Column="0">
+                     <Image Source="/Icons/logo.png" Width="100" />
+                    <Label Content="{Binding GpuName}"/>
+                    <Ellipse Width="5" Height="5" Fill="{Binding GpuActiveColour}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="5" >
+                    <Button HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="40" FontSize="16"
+                            Command="{Binding UploadImageCommand}" Name="AddImageButton" IsEnabled="{Binding CanAddImage}" IsVisible="{Binding CanAddImage}">
+				        <StackPanel>
+						    <TextBlock Text="Upload an image"/>
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="40" FontSize="16"
+                            IsEnabled="{Binding CanConvert}" Command="{Binding ConvertImageCommand}">
+                        <StackPanel>
+					        <TextBlock Text="Convert" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="40" FontSize="16"
+                            Command="{Binding ClearCommand}">
+				    <StackPanel>
+						<TextBlock Text="Clear"/>
+                    </StackPanel>
+                </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <Grid ColumnSpacing="10" ColumnDefinitions="*" DockPanel.Dock="Left">
+            <TabControl Grid.Column="0">
+				<TabItem Header="Convertion results">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Spacing="15"
+                                    Height="40"
+                                    Margin="20">
+
+                            <Button Content="Save converted image" Command="{Binding SaveConvertedImageCommand}"/>
+                        </StackPanel>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="5" >
+                        <Image Grid.Column="0"
+                                    Source="{Binding PreviewImage}"
+                                    Width="500" Height="500"
+                                    Stretch="Fill"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+                        <Image Grid.Column="1"  
+                                    Width="500" Height="500"
+                                    Stretch="Fill"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" 
+                                    Source="{Binding ConvertedImage}"/>
+                    </Grid>
+
+            </StackPanel>
+                </TabItem>
+                <TabItem Header="Histograms">
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="5" >
+                       <lvc:CartesianChart Grid.Column="0">
+						   <lvc:CartesianChart.Series >
+							   <lvc:XamlColumnSeries Values="{Binding PreviewValues}"/>
+                           </lvc:CartesianChart.Series>
+                       </lvc:CartesianChart>
+                           <lvc:CartesianChart Grid.Column="1" >
+						   <lvc:CartesianChart.Series  >
+							   <lvc:XamlColumnSeries Values="{Binding ConvertedValues}"/>
+                           </lvc:CartesianChart.Series>
+                       </lvc:CartesianChart>
+                    </Grid>					
+                </TabItem>
+                <TabItem Header="See statistics">
+			        <StackPanel Orientation="Vertical" Spacing="5">
+		                <StackPanel Height="40">
+			                <Button HorizontalAlignment="Center" Command="{Binding ExportToJsonCommand}" >
+				                <StackPanel>
+					                <TextBlock Text="Export as JSON"/>
+                                 </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid ItemsSource="{Binding ConvertionRecords}"
+                                        IsReadOnly="True" 
+                                        AutoGenerateColumns="False">
+	                        <DataGrid.Columns>
+				                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="80"/>
+                                <DataGridTextColumn Header="Amount of pixels" Binding="{Binding PixelsAmount}" Width="*"/>
+                                <DataGridTextColumn Header="GPU model" Binding="{Binding GpuModel}" Width="*"/>
+                                <DataGridTextColumn Header="Cuda cores" Binding="{Binding CudaCores}" Width="*"/>
+                                <DataGridTextColumn Header="Convertion time" Binding="{Binding ConvertionTime}" Width="*"/>
+                                <DataGridTextColumn Header="Convertion date" Binding="{Binding ConvertionDate}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</Window>
+
